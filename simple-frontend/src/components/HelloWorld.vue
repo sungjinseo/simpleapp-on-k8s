@@ -5,11 +5,14 @@ defineProps({
   msg: String,
 })
 
+
+
 const count = ref(0)
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
+  <h1>{{ testData }}</h1>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
@@ -41,3 +44,27 @@ const count = ref(0)
   color: #888;
 }
 </style>
+
+<script>
+import axios from 'axios'
+
+export default {
+  components: [],
+  data() {
+    return {
+      testData: "",
+    };
+  },
+  methods: {
+    get() {
+      axios.get('/api/connectTest')
+          .then((response)=>{
+            this.testData = response.data;
+          });
+    },
+  },
+  mounted() {
+    this.get();
+  },
+};
+</script>
